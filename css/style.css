@@ -121,7 +121,6 @@ a,
 }
 img {
   max-width: 100%;
-  height: auto;
 }
 :focus {
   outline: 0;
@@ -215,6 +214,11 @@ button {
 }
 .white_heading_main h2 {
   color: #fff;
+}
+.school-title {
+  font-weight: 600;
+  font-size: 1.25em;
+  margin-left: 10px;
 }
 .small_main_heading {
   margin-top: 25px;
@@ -891,13 +895,7 @@ nav.main-menu {
   position: relative;
   border-bottom: solid #eee 1px;
 }
-.main-menu ul > li .sub-down li a::before {
-}
-.main-menu ul > li .sub-down li a:hover {
-  color: #111111;
-}
-.main-menu ul > li .sub-down li a:hover::before {
-}
+
 .main-menu ul li:first-child {
   margin-left: 0;
 }
@@ -1021,7 +1019,6 @@ nav.main-menu {
   background: #0f052f;
   margin: 0 !important;
   padding: 30px 36px 30px 16px;
-  float: right;
   margin-right: 110px !important;
   width: 24%;
 }
@@ -1144,7 +1141,7 @@ nav.main-menu {
   color: #fff;
 }
 .slider_section {
-  padding-top: 134px;
+  padding-top: 5em;
 }
 .black_nolmal {
   font-weight: normal;
@@ -1381,7 +1378,6 @@ nav.main-menu {
   text-align: center;
   text-transform: uppercase;
   border-radius: 30px;
-  float: right;
   margin-top: 20px;
 }
 .box_text a:hover {
@@ -1439,7 +1435,6 @@ nav.main-menu {
   text-align: center;
   text-transform: uppercase;
   border-radius: 30px;
-  float: left;
   margin-top: 20px;
 }
 .make_text a:hover {
