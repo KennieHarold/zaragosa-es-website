@@ -11,8 +11,6 @@ export const rbac = (redirect: string) => {
       const token = req?.cookies['token'];
       const path = req?.path;
 
-      console.log(path);
-
       if (path === '/admin' || path === '/admin/') {
         if (token) {
           const {user} = jwt.verify(token, configs['jwtSecret']) as JwtPayload;
