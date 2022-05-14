@@ -6,6 +6,23 @@ $(window).on('load', function () {
   });
 });
 
+function createCookie(name, value, days) {
+  let expires;
+
+  if (days) {
+    let date = new Date();
+
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+
+    expires = '; expires=' + date.toGMTString();
+  } else {
+    expires = '';
+  }
+
+  document.cookie =
+    encodeURIComponent(name) + '=' + encodeURIComponent(value) + expires + '; path=/;SameSite = Strict;';
+}
+
 async function adminLogin() {
   const username = $('#username-input').val();
   const password = $('#password-input').val();
@@ -19,5 +36,6 @@ async function adminLogin() {
     alert(err.response.data.message);
   });
 
-  console.log(res);
+  createCookie('token', res.data.token, 60);
+  window.location.href = '/admin/dashboard';
 }

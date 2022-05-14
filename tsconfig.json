@@ -10,6 +10,7 @@
     "paths": {
       "controllers/*": ["controllers/*"],
       "configs": ["configs"],
+      "middlewares/*": ["middlewares/*"],
       "types/*": ["types/*"]
     }
   },

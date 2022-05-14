@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import config from 'configs';
+import {JwtPayload} from 'types/auth';
 
 export const adminLogin = async (req: Request, res: Response) => {
   try {
@@ -13,7 +14,7 @@ export const adminLogin = async (req: Request, res: Response) => {
     }
 
     if (username === 'admin' && password === 'admin') {
-      const payload = {
+      const payload: JwtPayload = {
         user: {
           id: 'admin',
         },

@@ -1,11 +1,13 @@
 import bodyParser from 'body-parser';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import {Request} from 'express';
 import fs from 'fs';
 
-// Controllers
+import {Request} from 'express';
+
 import {adminLogin} from 'controllers/user';
+import {rbac} from 'middlewares/auth';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -23,6 +25,7 @@ app.use(
     extended: true,
   }),
 );
+app.use(cookieParser());
 
 const checkLocalHost = (req: Request) => {
   const req_protocol = 'https://';
@@ -54,9 +57,14 @@ app.get('/history', (req, res) => {
   res.render('./history', {domainName});
 });
 
-app.get('/admin', (req, res) => {
+app.get('/admin', rbac('/admin/dashboard'), (req, res) => {
   const domainName = checkLocalHost(req);
   res.render('./admin', {domainName});
+});
+
+app.get('/admin/dashboard', rbac('/admin'), (req, res) => {
+  const domainName = checkLocalHost(req);
+  res.render('./dashboard', {domainName});
 });
 
 // APIs
