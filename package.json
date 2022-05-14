@@ -1,0 +1,48 @@
+{
+  "name": "zaragosa-es-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KennieHarold/zaragosa-es-website.git"
+  },
+  "author": "Kennie Harold Mantac",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KennieHarold/zaragosa-es-website/issues"
+  },
+  "homepage": "https://github.com/KennieHarold/zaragosa-es-website#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.16",
+    "simple-json-db": "^2.0.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.33",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.2",
+    "ts-node": "^10.7.0",
+    "tscpaths": "^0.0.9",
+    "typescript": "^4.6.4"
+  }
+}

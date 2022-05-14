@@ -1,0 +1,9 @@
+{
+  "watch": ["src"],
+  "ext": "ts,json",
+  "events": {
+    "start": "clear"
+  },
+  "ignore": ["src/**/*.spec.ts"],
+  "exec": "npm run build && ts-node ./dist/app.js"
+}
