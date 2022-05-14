@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
 $(window).on('load', function () {
+  checkPath();
+
   $('#login-btn').on('click', function (e) {
     e.preventDefault();
     adminLogin();
@@ -38,4 +40,8 @@ async function adminLogin() {
 
   createCookie('token', res.data.token, 60);
   window.location.href = '/admin/dashboard';
+}
+
+function checkPath() {
+  $('#tab-' + path).addClass('admin-tab-active');
 }

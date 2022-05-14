@@ -1,7 +1,7 @@
 /*--------------------------------------------------------------------- File Name: style.css ---------------------------------------------------------------------*/
 /*--------------------------------------------------------------------- import Fonts ---------------------------------------------------------------------*/
-@import url("https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700");
-@import url("https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i");
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
 /*****---------------------------------------- 1) font-family: 'Rajdhani', sans-serif;
  2) font-family: 'Poppins', sans-serif;
  ----------------------------------------*****/
@@ -23,7 +23,7 @@ html {
 body {
   color: #666666;
   font-size: 14px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   line-height: 1.80857;
   font-weight: normal;
   overflow-x: hidden;
@@ -232,7 +232,7 @@ button {
   color: #114c7d;
   font-weight: 400;
   font-size: 28px;
-  background-image: url("../images/fevicon.png");
+  background-image: url('../images/fevicon.png');
   background-repeat: no-repeat;
   padding-left: 55px;
   letter-spacing: -0.5px;
@@ -437,7 +437,7 @@ nav.main-menu {
   padding-right: 12px;
 }
 .top-menu-left li::before {
-  content: "";
+  content: '';
   position: absolute;
   right: 0;
   top: 9px;
@@ -490,8 +490,8 @@ nav.main-menu {
   top: 25px;
 }
 .dropdown-bar.right-dropdown-language > a::after {
-  font-family: "FontAwesome";
-  content: "\f107";
+  font-family: 'FontAwesome';
+  content: '\f107';
   text-decoration: none;
   padding-left: 4px;
   color: #ffffff;
@@ -536,8 +536,8 @@ nav.main-menu {
   margin-left: 12px;
 }
 .dropdown-bar.right-dropdown-currency > a::after {
-  font-family: "FontAwesome";
-  content: "\f107";
+  font-family: 'FontAwesome';
+  content: '\f107';
   text-decoration: none;
   padding-left: 4px;
   color: #ffffff;
@@ -769,7 +769,7 @@ nav.main-menu {
 }
 .product-media::before {
   position: absolute;
-  content: "";
+  content: '';
   z-index: 2;
   top: 0;
   left: 0;
@@ -828,7 +828,7 @@ nav.main-menu {
 .actions .btn-process {
   padding: 5px 16px;
   color: #ffffff;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   border-radius: 2px;
   overflow: hidden;
@@ -995,7 +995,7 @@ nav.main-menu {
   height: 90px;
   background: url(../images/top_arrow.png);
   display: block;
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -74px;
@@ -1007,7 +1007,7 @@ nav.main-menu {
   height: 49px;
   background: url(../images/top_arrow1.png);
   display: block;
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -131px;
@@ -1035,7 +1035,7 @@ nav.main-menu {
   margin-left: -51px;
   background: url(../images/top_arrow2.png);
   display: block;
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
 
@@ -1648,7 +1648,7 @@ ul.Menu_footer li {
 }
 
 ul.Menu_footer li:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 12px;
   height: 12px;
@@ -1690,7 +1690,7 @@ ul.Links_footer li {
 }
 
 ul.Links_footer li:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 12px;
   height: 12px;
@@ -1727,4 +1727,26 @@ ul.loca li a {
   color: #ff6701;
 }
 /** end footer **/
+
+.admin-tab {
+  border-radius: 25px;
+  border: 1px solid #007bff;
+  padding: 0.5em 1.75em 0.5em 1.75em;
+  margin: 0 0.3em 0 0.3em;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s;
+  color: #007bff;
+}
+
+.admin-tab:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.admin-tab-active {
+  background-color: #007bff;
+  color: white;
+}
+
 /*--------------------------------------------------------------------- ener page css ---------------------------------------------------------------------*/

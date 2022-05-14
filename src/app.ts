@@ -57,14 +57,29 @@ app.get('/history', (req, res) => {
   res.render('./history', {domainName});
 });
 
-app.get('/admin', rbac('/admin/dashboard'), (req, res) => {
+app.get('/admin', rbac('/admin/students'), (req, res) => {
   const domainName = checkLocalHost(req);
   res.render('./admin', {domainName});
 });
 
-app.get('/admin/dashboard', rbac('/admin'), (req, res) => {
+app.get('/admin/students', rbac('/admin'), (req, res) => {
   const domainName = checkLocalHost(req);
-  res.render('./dashboard', {domainName});
+  res.render('./students', {domainName, path: 'students'});
+});
+
+app.get('/admin/enrolment', rbac('/admin'), (req, res) => {
+  const domainName = checkLocalHost(req);
+  res.render('./enrolment', {domainName, path: 'enrolment'});
+});
+
+app.get('/admin/forms', rbac('/admin'), (req, res) => {
+  const domainName = checkLocalHost(req);
+  res.render('./forms', {domainName, path: 'forms'});
+});
+
+app.get('/admin/calendar', rbac('/admin'), (req, res) => {
+  const domainName = checkLocalHost(req);
+  res.render('./calendar', {domainName, path: 'calendar'});
 });
 
 // APIs

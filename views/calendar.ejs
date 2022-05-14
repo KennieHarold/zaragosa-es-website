@@ -3,9 +3,14 @@
   <%- include('partials/head.ejs') %>
 
   <body class="main-layout">
-    <span>Dashboard</span>
+    <!-- Tabs -->
+    <%- include('partials/admin-tabs.ejs') %>
+    <!-- End tabs -->
 
     <%- include('partials/scripts.ejs') %>
     <script src="<%= domainName %>/js/admin.js"></script>
+    <script>
+      var path = '<%= path %>';
+    </script>
   </body>
 </html>
