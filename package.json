@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "start": "node dist/app.js",
+    "dev": "nodemon",
+    "lint": "eslint . --ext .ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,10 +16,6 @@
   },
   "author": "Kennie Harold Mantac",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KennieHarold/zaragosa-es-website/issues"
-  },
-  "homepage": "https://github.com/KennieHarold/zaragosa-es-website#readme",
   "dependencies": {
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
