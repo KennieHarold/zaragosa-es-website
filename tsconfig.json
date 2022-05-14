@@ -9,7 +9,7 @@
     "outDir": "dist",
     "paths": {
       "controllers/*": ["controllers/*"],
-      "helpers/*": ["helpers/*"],
+      "configs": ["configs"],
       "types/*": ["types/*"]
     }
   },

@@ -4,6 +4,9 @@ import cors from 'cors';
 import {Request} from 'express';
 import fs from 'fs';
 
+// Controllers
+import {adminLogin} from 'controllers/user';
+
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -35,6 +38,7 @@ if (!fs.existsSync('./db')) {
   fs.mkdirSync('./db');
 }
 
+// Public
 app.get('/', (req, res) => {
   const domainName = checkLocalHost(req);
   res.render('./index', {domainName});
@@ -49,6 +53,14 @@ app.get('/history', (req, res) => {
   const domainName = checkLocalHost(req);
   res.render('./history', {domainName});
 });
+
+app.get('/admin', (req, res) => {
+  const domainName = checkLocalHost(req);
+  res.render('./admin', {domainName});
+});
+
+// APIs
+app.post('/api/v1/admin/login', adminLogin);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

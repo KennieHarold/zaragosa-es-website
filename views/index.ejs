@@ -310,6 +310,33 @@
 
     <!-- Javascript files -->
     <%- include('partials/scripts.ejs') %>
+
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 17,
+          center: {
+            lat: 16.7064156,
+            lng: 120.3662283,
+          },
+        });
+        var image = 'images/maps-and-flags.png';
+        var beachMarker = new google.maps.Marker({
+          position: {
+            lat: 16.7064156,
+            lng: 120.3662283,
+          },
+          map: map,
+          icon: image,
+        });
+      }
+    </script>
+    <!-- Google map js -->
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUXpmyNdfmy3dGxbFKdX06S9tH0KYde9I&callback=initMap"
+    ></script>
+    <!-- End google map js -->
     <!-- End of Javascript files -->
   </body>
 </html>

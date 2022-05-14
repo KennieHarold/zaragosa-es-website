@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head.ejs') %>
+
+  <body class="main-layout">
+    <div class="d-flex card shadow p-4 w-25 mt-5 mx-auto">
+      <form>
+        <div class="form-group">
+          <label for="username-input">Username</label>
+          <input type="text" class="form-control" id="username-input" placeholder="Enter username" />
+        </div>
+        <div class="form-group">
+          <label for="password-input">Password</label>
+          <input type="password" class="form-control" id="password-input" placeholder="Password" />
+        </div>
+        <button id="login-btn" type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+
+    <%- include('partials/scripts.ejs') %>
+    <script src="<%= domainName %>/js/admin.js"></script>
+  </body>
+</html>
