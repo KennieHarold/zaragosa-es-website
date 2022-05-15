@@ -160,10 +160,16 @@ async function getStudents() {
       <td>${student?.age}</td>
       <td>${student?.gender}</td>
       <td>
-        <button class='btn btn-primary btn-sm'>
-          View
-          <i class='fa fa-location-arrow' style='font-size: 18px; margin-left: 0.25em'></i>
-        </button>
+        <div class='d-flex flex-row'>
+          <button class='btn btn-primary btn-sm' style='margin-right: 0.5em'>
+            View
+            <i class='fa fa-location-arrow' style='font-size: 18px; margin-left: 0.25em'></i>
+          </button>
+          <button class='btn btn-info btn-sm'>
+            Update
+            <i class='fa fa-pencil' style='font-size: 18px; margin-left: 0.25em'></i>
+          </button>
+        </div>
       </td>
     </tr>
     `);

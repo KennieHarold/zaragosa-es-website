@@ -8,16 +8,42 @@
     <!-- End tabs -->
 
     <div class="p-5">
-      <button
-        type="button"
-        class="btn btn-success"
-        data-toggle="modal"
-        data-target="#flipFlop"
-        onclick="window.location.href = '/admin/enrolment';"
-      >
-        <i class="fa fa-user" style="margin-right: 0.5em"></i>
-        Add Student
-      </button>
+      <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-row">
+          <div class="btn-group" style="margin-right: 1em">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              School Year<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu px-2" role="menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+            </ul>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+              Grade<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu px-2" role="menu">
+              <% for (let i = 1; i <= 6; i++) { %>
+              <li><a href="#"><%= i %></a></li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-success"
+          data-toggle="modal"
+          data-target="#flipFlop"
+          onclick="window.location.href = '/admin/enrolment';"
+        >
+          <i class="fa fa-user" style="margin-right: 0.5em"></i>
+          Enroll Student
+        </button>
+      </div>
 
       <table class="table table-hover mt-4">
         <thead>
