@@ -7,6 +7,145 @@
     <%- include('partials/admin-tabs.ejs') %>
     <!-- End tabs -->
 
+    <div class="row p-5">
+      <div class="col-lg-6">
+        <div class="card shadow p-4" style="border-radius: 15px">
+          <span class="d-block mb-3 text-primary" style="font-weight: 600">Students Personal Information</span>
+
+          <div class="form-group">
+            <label for="student-id-input">Student ID</label>
+            <input type="text" class="form-control" id="student-id-input" placeholder="Enter student ID" />
+          </div>
+
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="form-group">
+                <label for="firstname-input">First Name</label>
+                <input type="text" class="form-control" id="firstname-input" placeholder="Enter first name" />
+              </div>
+            </div>
+
+            <div class="col-lg-3">
+              <div class="form-group">
+                <label for="middleinitial-input">Middle Initial</label>
+                <input type="text" class="form-control" id="middleinitial-input" placeholder="Enter MI" />
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="lastname-input">Last Name</label>
+                <input type="text" class="form-control" id="lastname-input" placeholder="Enter last name" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group">
+                <label for="age-input">Age</label>
+                <input type="number" class="form-control" id="age-input" placeholder="Enter age" />
+              </div>
+            </div>
+
+            <div class="col-lg-8">
+              <div class="form-group">
+                <label for="bday-input">Date of Birth</label>
+                <input type="date" class="form-control" id="bday-input" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <span class="d-block mb-2">Gender</span>
+
+            <div class="d-flex flex-row">
+              <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
+                <input type="radio" id="male-check" name="gender" value="male" checked style="margin-right: 0.5em" />
+                <label for="male-check" style="margin-bottom: 0">Male</label>
+              </div>
+
+              <div class="d-flex flex-row align-items-center">
+                <input type="radio" id="female-check" name="gender" value="female" style="margin-right: 0.5em" />
+                <label for="female-check" style="margin-bottom: 0">Female</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card shadow p-4" style="border-radius: 15px">
+          <span class="d-block mb-3 text-primary" style="font-weight: 600">Requirements</span>
+
+          <div class="d-flex flex-row flex-wrap">
+            <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
+              <input type="checkbox" id="enrolment-check" name="requirements" style="margin-right: 0.5em" />
+              <label for="enrolment-check" style="margin-bottom: 0">Enrolment Form</label>
+            </div>
+
+            <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
+              <input type="checkbox" id="birth-cert-check" name="requirements" style="margin-right: 0.5em" />
+              <label for="birth-cert-check" style="margin-bottom: 0">Birth Certificate</label>
+            </div>
+
+            <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
+              <input type="checkbox" id="grade-card-check" name="requirements" style="margin-right: 0.5em" />
+              <label for="grade-card-check" style="margin-bottom: 0">Grade Card</label>
+            </div>
+
+            <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
+              <input type="checkbox" id="personal-data-check" name="requirements" style="margin-right: 0.5em" />
+              <label for="personal-data-check" style="margin-bottom: 0">Personal Data Sheet</label>
+            </div>
+
+            <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
+              <input type="checkbox" id="baptismal-cert-check" name="requirements" style="margin-right: 0.5em" />
+              <label for="baptismal-cert-check" style="margin-bottom: 0">Baptismal Certificate</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card shadow mt-4 p-4" style="border-radius: 15px">
+          <span class="d-block mb-3 text-primary" style="font-weight: 600">Advisory Information</span>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="control-label" for="school-year-select">School Year</label>
+                <% const currentYear = new Date().getFullYear() %>
+                <select id="school-year-select" class="form-control">
+                  <% for (let i = currentYear + 4; i >= currentYear; i--) { %>
+                  <option value='<%= i - 1 + " - " + i %>'><%= i - 1 + " - " + i %></option>
+                  <% } %>
+                  <!--  -->
+                  <% for (let i = currentYear - 1; i >= currentYear - 4; i--) { %>
+                  <option value='<%= i - 1 + " - " + i %>'><%= i - 1 + " - " + i %></option>
+                  <% } %>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="age-input">Grade</label>
+                <input type="number" class="form-control" id="grader-input" placeholder="Enter grade" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="section-input">Section</label>
+            <input type="text" class="form-control" id="section-input" placeholder="Enter section" />
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .nice-select {
+        display: none;
+      }
+    </style>
     <%- include('partials/scripts.ejs') %>
     <script src="<%= domainName %>/js/admin.js"></script>
     <script>

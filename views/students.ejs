@@ -7,6 +7,18 @@
     <%- include('partials/admin-tabs.ejs') %>
     <!-- End tabs -->
 
+    <div class="p-5">
+      <button
+        type="button"
+        class="btn btn-success"
+        data-toggle="modal"
+        data-target="#flipFlop"
+        onclick="window.location.href = '/admin/enrolment';"
+      >
+        Add Student
+      </button>
+    </div>
+
     <%- include('partials/scripts.ejs') %>
     <script src="<%= domainName %>/js/admin.js"></script>
     <script>

@@ -6,6 +6,11 @@ $(window).on('load', function () {
     e.preventDefault();
     adminLogin();
   });
+
+  $('#submit-student-btn').on('click', function (e) {
+    e.preventDefault();
+    addStudent();
+  });
 });
 
 function createCookie(name, value, days) {
@@ -44,4 +49,23 @@ async function adminLogin() {
 
 function checkPath() {
   $('#tab-' + path).addClass('admin-tab-active');
+}
+
+async function addStudent() {
+  const firstname = $('#firstname-input').val();
+  const middleInitial = $('#middleinitial-input').val();
+  const lastname = $('#lastname-input').val();
+  const age = $('#age-input').val();
+  const bday = new Date($('#bday-input').val()).getTime();
+  const gender = $('input[name="gender"]:checked').val();
+
+  if (!firstname || !lastname || !age || !bday) {
+    alert('Please input required fields!');
+    return;
+  }
+
+  if (firstname === '' || lastname === '' || age === '' || age === '0' || bday === '') {
+    alert('Please input required fields!');
+    return;
+  }
 }
