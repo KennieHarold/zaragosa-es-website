@@ -13,14 +13,14 @@
           <span class="d-block mb-3 text-primary" style="font-weight: 600">Students Personal Information</span>
 
           <div class="form-group">
-            <label for="student-id-input">Student ID</label>
+            <label for="student-id-input">Student ID <span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="student-id-input" placeholder="Enter student ID" />
           </div>
 
           <div class="row">
             <div class="col-lg-5">
               <div class="form-group">
-                <label for="firstname-input">First Name</label>
+                <label for="firstname-input">First Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="firstname-input" placeholder="Enter first name" />
               </div>
             </div>
@@ -34,7 +34,7 @@
 
             <div class="col-lg-4">
               <div class="form-group">
-                <label for="lastname-input">Last Name</label>
+                <label for="lastname-input">Last Name <span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="lastname-input" placeholder="Enter last name" />
               </div>
             </div>
@@ -43,14 +43,14 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="form-group">
-                <label for="age-input">Age</label>
+                <label for="age-input">Age <span class="text-danger">*</span></label>
                 <input type="number" class="form-control" id="age-input" placeholder="Enter age" />
               </div>
             </div>
 
             <div class="col-lg-8">
               <div class="form-group">
-                <label for="bday-input">Date of Birth</label>
+                <label for="bday-input">Date of Birth <span class="text-danger">*</span></label>
                 <input type="date" class="form-control" id="bday-input" />
               </div>
             </div>
@@ -80,27 +80,57 @@
 
           <div class="d-flex flex-row flex-wrap">
             <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
-              <input type="checkbox" id="enrolment-check" name="requirements" style="margin-right: 0.5em" />
+              <input
+                type="checkbox"
+                id="enrolment-check"
+                name="requirements"
+                value="enrolmentForm"
+                style="margin-right: 0.5em"
+              />
               <label for="enrolment-check" style="margin-bottom: 0">Enrolment Form</label>
             </div>
 
             <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
-              <input type="checkbox" id="birth-cert-check" name="requirements" style="margin-right: 0.5em" />
+              <input
+                type="checkbox"
+                id="birth-cert-check"
+                name="requirements"
+                value="birthCertificate"
+                style="margin-right: 0.5em"
+              />
               <label for="birth-cert-check" style="margin-bottom: 0">Birth Certificate</label>
             </div>
 
             <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
-              <input type="checkbox" id="grade-card-check" name="requirements" style="margin-right: 0.5em" />
+              <input
+                type="checkbox"
+                id="grade-card-check"
+                name="requirements"
+                value="gradeCard"
+                style="margin-right: 0.5em"
+              />
               <label for="grade-card-check" style="margin-bottom: 0">Grade Card</label>
             </div>
 
             <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
-              <input type="checkbox" id="personal-data-check" name="requirements" style="margin-right: 0.5em" />
+              <input
+                type="checkbox"
+                id="personal-data-check"
+                name="requirements"
+                value="personalDataSheet"
+                style="margin-right: 0.5em"
+              />
               <label for="personal-data-check" style="margin-bottom: 0">Personal Data Sheet</label>
             </div>
 
             <div class="d-flex flex-row align-items-center" style="margin-right: 1em">
-              <input type="checkbox" id="baptismal-cert-check" name="requirements" style="margin-right: 0.5em" />
+              <input
+                type="checkbox"
+                id="baptismal-cert-check"
+                name="requirements"
+                value="baptismalCertificate"
+                style="margin-right: 0.5em"
+              />
               <label for="baptismal-cert-check" style="margin-bottom: 0">Baptismal Certificate</label>
             </div>
           </div>
@@ -112,15 +142,17 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <label class="control-label" for="school-year-select">School Year</label>
+                <label class="control-label" for="school-year-select">
+                  School Year <span class="text-danger">*</span>
+                </label>
                 <% const currentYear = new Date().getFullYear() %>
                 <select id="school-year-select" class="form-control">
                   <% for (let i = currentYear + 4; i >= currentYear; i--) { %>
-                  <option value='<%= i - 1 + " - " + i %>'><%= i - 1 + " - " + i %></option>
+                  <option value='<%= i - 1 + "-" + i %>'><%= i - 1 + " - " + i %></option>
                   <% } %>
                   <!--  -->
                   <% for (let i = currentYear - 1; i >= currentYear - 4; i--) { %>
-                  <option value='<%= i - 1 + " - " + i %>'><%= i - 1 + " - " + i %></option>
+                  <option value='<%= i - 1 + "-" + i %>'><%= i - 1 + " - " + i %></option>
                   <% } %>
                 </select>
               </div>
@@ -128,8 +160,8 @@
 
             <div class="col-lg-6">
               <div class="form-group">
-                <label for="age-input">Grade</label>
-                <input type="number" class="form-control" id="grader-input" placeholder="Enter grade" />
+                <label for="grade-input">Grade <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="grade-input" placeholder="Enter grade" />
               </div>
             </div>
           </div>
@@ -137,8 +169,18 @@
           <div class="form-group">
             <label for="section-input">Section</label>
             <input type="text" class="form-control" id="section-input" placeholder="Enter section" />
+          </div>
         </div>
       </div>
+    </div>
+
+    <div class="px-5 pb-5 d-flex flex-row">
+      <button id="cancel-btn" class="btn btn-secondary" style="margin-right: 1em" onclick="history.back();">
+        Cancel
+      </button>
+      <button id="submit-student-btn" class="btn btn-success">
+        <i class="fa fa-save" style="margin-right: 0.5em"></i>Submit
+      </button>
     </div>
 
     <style>
@@ -146,10 +188,17 @@
         display: none;
       }
     </style>
+
     <%- include('partials/scripts.ejs') %>
+
     <script src="<%= domainName %>/js/admin.js"></script>
     <script>
       var path = '<%= path %>';
+
+      $(window).on('load', function () {
+        const currentYear = new Date().getFullYear();
+        $('#school-year-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
+      });
     </script>
   </body>
 </html>

@@ -6,7 +6,7 @@ import fs from 'fs';
 
 import {Request} from 'express';
 
-import {adminLogin} from 'controllers/user';
+import {addStudent, adminLogin, getStudents} from 'controllers';
 import {rbac} from 'middlewares/auth';
 
 const app = express();
@@ -84,6 +84,8 @@ app.get('/admin/calendar', rbac('/admin'), (req, res) => {
 
 // APIs
 app.post('/api/v1/admin/login', adminLogin);
+app.post('/api/v1/admin/students', addStudent);
+app.get('/api/v1/admin/students', getStudents);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

@@ -15,8 +15,24 @@
         data-target="#flipFlop"
         onclick="window.location.href = '/admin/enrolment';"
       >
+        <i class="fa fa-user" style="margin-right: 0.5em"></i>
         Add Student
       </button>
+
+      <table class="table table-hover mt-4">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Grade & Section</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="students-table"></tbody>
+      </table>
     </div>
 
     <%- include('partials/scripts.ejs') %>

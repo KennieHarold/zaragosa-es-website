@@ -8,7 +8,7 @@
     "sourceMap": true,
     "outDir": "dist",
     "paths": {
-      "controllers/*": ["controllers/*"],
+      "controllers": ["controllers"],
       "configs": ["configs"],
       "middlewares/*": ["middlewares/*"],
       "types/*": ["types/*"]
