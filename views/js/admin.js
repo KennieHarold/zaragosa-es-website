@@ -13,6 +13,10 @@ $(window).on('load', async function () {
     e.preventDefault();
     addStudent();
   });
+
+  $('#logout-btn').on('click', function () {
+    logout();
+  });
 });
 
 function createCookie(name, value, days) {
@@ -33,7 +37,6 @@ function createCookie(name, value, days) {
 }
 
 async function adminLogin() {
-  console.log('Here')
   const username = $('#username-input').val();
   const password = $('#password-input').val();
 
@@ -45,8 +48,6 @@ async function adminLogin() {
   const res = await axios.post('/api/v1/admin/login', data).catch((err) => {
     alert(err.response.data.message);
   });
-
-  console.log(res)
 
   if (res.status === 200) {
     createCookie('token', res.data.token, 60);
@@ -176,5 +177,19 @@ async function getStudents() {
       </td>
     </tr>
     `);
+  });
+}
+
+function logout() {
+  if (get_cookie('token')) {
+    document.cookie = 'token' + '=' + ';path=/' + ';domain=' + ';expires=Thu, 01 Jan 1970 00:00:01 GMT';
+  }
+
+  window.location.reload();
+}
+
+function get_cookie(name) {
+  return document.cookie.split(';').some((c) => {
+    return c.trim().startsWith(name + '=');
   });
 }
