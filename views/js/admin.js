@@ -1,4 +1,6 @@
 /* eslint-disable no-undef */
+var students = [];
+
 $(window).on('load', async function () {
   checkPath();
 
@@ -154,7 +156,9 @@ async function getStudents() {
 
   const table = $('#students-table');
 
-  res?.data.forEach((student, index) => {
+  students = res?.data || [];
+
+  students.forEach((student, index) => {
     table.append(`
     <tr>
       <td>${index + 1}</td>
@@ -165,7 +169,7 @@ async function getStudents() {
       <td>${student?.gender}</td>
       <td>
         <div class='d-flex flex-row'>
-          <button class='btn btn-primary btn-sm' style='margin-right: 0.5em'>
+          <button onClick="setupViewModal('${student.id}')" class='btn btn-primary btn-sm' style='margin-right: 0.5em'>
             View
             <i class='fa fa-location-arrow' style='font-size: 18px; margin-left: 0.25em'></i>
           </button>
@@ -192,4 +196,50 @@ function get_cookie(name) {
   return document.cookie.split(';').some((c) => {
     return c.trim().startsWith(name + '=');
   });
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function setupViewModal(studentId) {
+  const selectedStudent = students.find((student) => student.id === studentId);
+
+  $('#modal-student-name').text(
+    selectedStudent.firstname + ' ' + selectedStudent.middleInitial + ' ' + selectedStudent.lastname,
+  );
+  $('#modal-student-grade-section').text('Grade ' + selectedStudent.grade + ' - ' + selectedStudent.section);
+  $('#modal-student-bday').text(selectedStudent.bday);
+  $('#modal-student-age').text(selectedStudent.age);
+  $('#modal-student-gender').text(selectedStudent.gender);
+  $('#modal-student-sy').text(selectedStudent.schoolYear);
+
+  $('#modal-requirements-container').empty();
+
+  selectedStudent.requirements.forEach((requirement) => {
+    $('#modal-requirements-container').append(`
+      <span style='margin-right: 5px; margin-bottom: 5px'>${getRequirementComponent(requirement)}</span>
+    `);
+  });
+
+  $('#view-student-modal').modal('show');
+}
+
+function getRequirementComponent(requirement) {
+  switch (requirement) {
+    case 'enrolmentForm':
+      return 'Enrolment Form<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
+
+    case 'baptismalCertificate':
+      return 'Baptismal Certificate<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
+
+    case 'birthCertificate':
+      return 'Birth Certificate<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
+
+    case 'goodMoralCertificate':
+      return 'Good Moral Certificate<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
+
+    case 'reportCard':
+      return 'Report Card<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
+
+    default:
+      return '';
+  }
 }

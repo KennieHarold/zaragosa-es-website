@@ -10,27 +10,7 @@
     <div class="p-5">
       <div class="d-flex flex-row justify-content-between">
         <div class="d-flex flex-row">
-          <div class="btn-group" style="margin-right: 1em">
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-              School Year<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu px-2" role="menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-            </ul>
-          </div>
-
-          <div class="btn-group">
-            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-              Grade<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu px-2" role="menu">
-              <% for (let i = 1; i <= 6; i++) { %>
-              <li><a href="#"><%= i %></a></li>
-              <% } %>
-            </ul>
-          </div>
+          <!-- Todo: Filter -->
         </div>
 
         <button
@@ -59,6 +39,58 @@
         </thead>
         <tbody id="students-table"></tbody>
       </table>
+    </div>
+
+    <!-- The modal -->
+    <div
+      class="modal fade"
+      id="view-student-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="viewStudentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <span
+              class="d-block"
+              style="
+                border-bottom: 1px solid lightgray;
+                padding-bottom: 1em;
+                margin-bottom: 1em;
+                font-size: 1em;
+                font-weight: 700;
+              "
+            >
+              Students Information
+            </span>
+            <span class="d-block">Name:&nbsp;<span id="modal-student-name"></span></span>
+            <span class="d-block">Grade and Section:&nbsp;<span id="modal-student-grade-section"></span></span>
+            <span class="d-block">Birthday:&nbsp;<span id="modal-student-bday"></span></span>
+            <span class="d-block">Age:&nbsp;<span id="modal-student-age"></span></span>
+            <span class="d-block">Gender:&nbsp;<span id="modal-student-gender"></span></span>
+            <span class="d-block">School Year Enrolled:&nbsp;<span id="modal-student-sy"></span></span>
+            <span
+              class="d-block"
+              style="
+                border-bottom: 1px solid lightgray;
+                padding-bottom: 1em;
+                margin-bottom: 1em;
+                font-size: 1em;
+                font-weight: 700;
+                margin-top: 1.5em;
+              "
+            >
+              Requirements
+            </span>
+            <div id="modal-requirements-container"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <%- include('partials/scripts.ejs') %>
