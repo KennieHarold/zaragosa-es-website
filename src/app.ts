@@ -59,7 +59,7 @@ app.get('/history', (req, res) => {
 
 app.get('/admin', rbac('/admin/students'), (req, res) => {
   const domainName = checkLocalHost(req);
-  res.render('./admin', {domainName});
+  res.render('./admin', {domainName, path: ''});
 });
 
 app.get('/admin/students', rbac('/admin'), (req, res) => {

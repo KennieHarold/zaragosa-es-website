@@ -33,6 +33,7 @@ function createCookie(name, value, days) {
 }
 
 async function adminLogin() {
+  console.log('Here')
   const username = $('#username-input').val();
   const password = $('#password-input').val();
 
@@ -45,9 +46,11 @@ async function adminLogin() {
     alert(err.response.data.message);
   });
 
+  console.log(res)
+
   if (res.status === 200) {
     createCookie('token', res.data.token, 60);
-    window.location.href = '/admin/dashboard';
+    window.location.href = '/admin/students';
   }
 }
 

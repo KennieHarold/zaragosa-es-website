@@ -4,7 +4,7 @@
 
   <body class="main-layout">
     <div class="d-flex card shadow p-4 w-25 mt-5 mx-auto">
-      <form>
+      <div class="d-flex flex-column">
         <div class="form-group">
           <label for="username-input">Username</label>
           <input type="text" class="form-control" id="username-input" placeholder="Enter username" />
@@ -13,11 +13,14 @@
           <label for="password-input">Password</label>
           <input type="password" class="form-control" id="password-input" placeholder="Password" />
         </div>
-        <button id="login-btn" type="submit" class="btn btn-primary">Submit</button>
-      </form>
+        <button id="login-btn" class="btn btn-primary">Submit</button>
+      </div>
     </div>
 
     <%- include('partials/scripts.ejs') %>
+    <script>
+      var path = '<%= path %>';
+    </script>
     <script src="<%= domainName %>/js/admin.js"></script>
   </body>
 </html>
