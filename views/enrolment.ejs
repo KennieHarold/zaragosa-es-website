@@ -181,6 +181,9 @@
       <button id="submit-student-btn" class="btn btn-success">
         <i class="fa fa-save" style="margin-right: 0.5em"></i>Submit
       </button>
+      <button id="update-student-btn" class="btn btn-success" style="display: none">
+        <i class="fa fa-save" style="margin-right: 0.5em"></i>Update
+      </button>
     </div>
 
     <style>
@@ -194,11 +197,7 @@
     <script src="<%= domainName %>/js/admin.js"></script>
     <script>
       var path = '<%= path %>';
-
-      $(window).on('load', function () {
-        const currentYear = new Date().getFullYear();
-        $('#school-year-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
-      });
+      var student = JSON.parse('<%- JSON.stringify(student) %>');
     </script>
   </body>
 </html>

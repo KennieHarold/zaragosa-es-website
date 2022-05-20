@@ -6,8 +6,9 @@ import fs from 'fs';
 
 import {Request} from 'express';
 
-import {addStudent, adminLogin, getStudents} from 'controllers';
+import {addStudent, adminLogin, getStudentById, getStudents, updateStudent} from 'controllers';
 import {rbac} from 'middlewares/auth';
+import axios from 'axios';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -69,7 +70,18 @@ app.get('/admin/students', rbac('/admin'), (req, res) => {
 
 app.get('/admin/enrolment', rbac('/admin'), (req, res) => {
   const domainName = checkLocalHost(req);
-  res.render('./enrolment', {domainName, path: 'enrolment'});
+  res.render('./enrolment', {domainName, student: null, path: 'enrolment'});
+});
+
+app.get('/admin/enrolment/update/:studentId', rbac('/admin'), async (req, res) => {
+  const domainName = checkLocalHost(req);
+  try {
+    const student = await axios.get(`${domainName}/api/v1/admin/students/${req.params.studentId}`);
+    res.render('./enrolment', {domainName, student: student.data, path: 'enrolment'});
+  } catch (error) {
+    console.log(error);
+    res.render('./enrolment', {domainName, student: null, path: 'enrolment'});
+  }
 });
 
 app.get('/admin/forms', rbac('/admin'), (req, res) => {
@@ -86,6 +98,8 @@ app.get('/admin/calendar', rbac('/admin'), (req, res) => {
 app.post('/api/v1/admin/login', adminLogin);
 app.post('/api/v1/admin/students', addStudent);
 app.get('/api/v1/admin/students', getStudents);
+app.get('/api/v1/admin/students/:studentId', getStudentById);
+app.put('/api/v1/admin/students/:studentId', updateStudent);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

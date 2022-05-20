@@ -70,3 +70,30 @@ export const getStudents = async (req: Request, res: Response) => {
     return res.status(500).json({message: 'Server error'});
   }
 };
+
+export const getStudentById = async (req: Request, res: Response) => {
+  try {
+    const Students = new JSONdb('db/Students.json');
+    const StudentsJSON = Students.JSON();
+    const id = req.params.studentId;
+
+    return res.status(200).json({id, ...StudentsJSON[id]});
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+};
+
+export const updateStudent = async (req: Request, res: Response) => {
+  try {
+    const Students = new JSONdb('db/Students.json');
+    const id = req.params.studentId;
+
+    Students.set(id, {...req.body});
+
+    return res.status(200).json({message: 'Success'});
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+};

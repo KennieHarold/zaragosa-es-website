@@ -4,7 +4,14 @@ var students = [];
 $(window).on('load', async function () {
   checkPath();
 
-  await getStudents();
+  if (path === 'students') {
+    getStudents();
+  }
+
+  if (path === 'enrolment') {
+    parseEnrolmentFields();
+    checkUpdate();
+  }
 
   $('#login-btn').on('click', function (e) {
     e.preventDefault();
@@ -14,6 +21,11 @@ $(window).on('load', async function () {
   $('#submit-student-btn').on('click', function (e) {
     e.preventDefault();
     addStudent();
+  });
+
+  $('#update-student-btn').on('click', function (e) {
+    e.preventDefault();
+    updateStudent();
   });
 
   $('#logout-btn').on('click', function () {
@@ -169,11 +181,17 @@ async function getStudents() {
       <td>${student?.gender}</td>
       <td>
         <div class='d-flex flex-row'>
-          <button onClick="setupViewModal('${student.id}')" class='btn btn-primary btn-sm' style='margin-right: 0.5em'>
+          <button 
+            onClick="setupViewModal('${student.id}')" 
+            class='btn btn-primary btn-sm' 
+            style='margin-right: 0.5em'
+          >
             View
             <i class='fa fa-location-arrow' style='font-size: 18px; margin-left: 0.25em'></i>
           </button>
-          <button class='btn btn-info btn-sm'>
+          <button
+            onClick="window.location.href = '/admin/enrolment/update/${student.id}'" 
+            class='btn btn-info btn-sm'>
             Update
             <i class='fa fa-pencil' style='font-size: 18px; margin-left: 0.25em'></i>
           </button>
@@ -214,6 +232,7 @@ function setupViewModal(studentId) {
   $('#modal-requirements-container').empty();
 
   selectedStudent.requirements.forEach((requirement) => {
+    console.log(requirement);
     $('#modal-requirements-container').append(`
       <span style='margin-right: 5px; margin-bottom: 5px'>${getRequirementComponent(requirement)}</span>
     `);
@@ -233,13 +252,108 @@ function getRequirementComponent(requirement) {
     case 'birthCertificate':
       return 'Birth Certificate<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
 
-    case 'goodMoralCertificate':
-      return 'Good Moral Certificate<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
+    case 'personalDataSheet':
+      return 'Personal Data Sheet<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
 
-    case 'reportCard':
-      return 'Report Card<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
+    case 'gradeCard':
+      return 'Grade Card<i class="fa fa-check" style="margin-left: 5px; color: green"></i>';
 
     default:
       return '';
+  }
+}
+
+function parseEnrolmentFields() {
+  const currentYear = new Date().getFullYear();
+  $('#school-year-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
+}
+
+function checkUpdate() {
+  if (student) {
+    $('#student-id-input').val(student.id);
+    $('#firstname-input').val(student.firstname);
+    $('#middleinitial-input').val(student.middleInitial);
+    $('#lastname-input').val(student.lastname);
+    $('#age-input').val(student.age);
+    $('#bday-input').val(student.bday);
+    $('#' + student?.gender + '-check').prop('checked', true);
+    $('#grade-input').val(student.grade);
+    $('#section-input').val(student.section);
+    $('#school-year-select').val(student.schoolYear);
+    $('#student-id-input').attr('disabled', true);
+
+    for (let i = 0; i < student.requirements.length; i++) {
+      $('input[name="requirements"][value="' + student.requirements[i] + '"]').prop('checked', true);
+    }
+
+    $('#submit-student-btn').hide();
+    $('#update-student-btn').show();
+  }
+}
+
+async function updateStudent() {
+  const studentId = $('#student-id-input').val();
+  const firstname = $('#firstname-input').val();
+  const middleInitial = $('#middleinitial-input').val();
+  const lastname = $('#lastname-input').val();
+  const age = $('#age-input').val();
+  const bday = $('#bday-input').val();
+  const gender = $('input[name="gender"]:checked').val();
+  const requirements = $('input[name="requirements"]:checked');
+  const schoolYear = $('#school-year-select').val();
+  const grade = $('#grade-input').val();
+  const section = $('#section-input').val();
+
+  if (!studentId || !firstname || !lastname || !age || !bday || !schoolYear || !grade) {
+    alert('Please input required fields!');
+    return;
+  }
+
+  if (
+    studentId === '' ||
+    firstname === '' ||
+    lastname === '' ||
+    age === '' ||
+    age === '0' ||
+    bday === '' ||
+    schoolYear === '' ||
+    grade === '' ||
+    grade === '0'
+  ) {
+    alert('Please input required fields!');
+    return;
+  }
+
+  const _requirements = [];
+  for (let i = 0; i < requirements.length; i++) {
+    _requirements.push($(requirements[i]).val());
+  }
+
+  const payload = {
+    studentId,
+    firstname,
+    middleInitial,
+    lastname,
+    age,
+    bday,
+    gender,
+    requirements: _requirements,
+    schoolYear,
+    grade,
+    section,
+  };
+
+  $('#update-student-btn').attr('disabled', true);
+  $('#cancel-btn').attr('disabled', true);
+
+  const res = await axios.put('/api/v1/admin/students/' + studentId, payload).catch((err) => {
+    alert(err.response.data.message);
+  });
+
+  $('#update-student-btn').attr('disabled', false);
+  $('#cancel-btn').attr('disabled', false);
+
+  if (res.status === 200) {
+    alert('Successfully updated student!');
   }
 }
