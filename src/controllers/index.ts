@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import config from 'configs';
 
 import {JwtPayload} from 'types/auth';
-import {CustomRequest, IUser} from 'types/api';
+import {CustomRequest, IUser, IForm} from 'types/api';
 
 export const adminLogin = async (req: Request, res: Response) => {
   try {
@@ -90,6 +90,102 @@ export const updateStudent = async (req: Request, res: Response) => {
     const id = req.params.studentId;
 
     Students.set(id, {...req.body});
+
+    return res.status(200).json({message: 'Success'});
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+};
+
+export const searchStudent = async (req: Request, res: Response) => {
+  try {
+    const search = req?.query?.search as string;
+    const Students = new JSONdb('db/Students.json');
+    const StudentsJSON = Students.JSON();
+
+    const students = [];
+
+    if (search) {
+      if (search.length >= 3) {
+        Object.keys(StudentsJSON).forEach((key) => {
+          const upperStudentFirstName = StudentsJSON[key].firstname.toUpperCase();
+          const upperStudentLastName = StudentsJSON[key].lastname.toUpperCase();
+          const upperSearch = search.toUpperCase();
+
+          if (upperStudentFirstName.includes(upperSearch) || upperStudentLastName.includes(upperSearch)) {
+            students.push({
+              id: key,
+              ...StudentsJSON[key],
+            });
+          }
+        });
+      }
+    }
+
+    return res.status(200).json(students);
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+};
+
+export const getFormsByStudentIdAndSY = async (req: Request, res: Response) => {
+  try {
+    const studentId = req?.query?.studentId;
+    const sy = req?.query?.sy;
+
+    const Forms = new JSONdb('db/Forms.json');
+    const FormsJSON = Forms.JSON();
+
+    const forms = [];
+
+    Object.keys(FormsJSON).forEach((key) => {
+      if (FormsJSON[key].studentId === studentId && FormsJSON[key].schoolYear === sy) {
+        forms.push({
+          id: key,
+          ...FormsJSON[key],
+        });
+      }
+    });
+    return res.status(200).json(forms);
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+};
+
+export const addForm = async (req: CustomRequest<IForm>, res: Response) => {
+  try {
+    const studentId = req?.body?.studentId;
+    const quarter = req?.body?.quarter;
+    const schoolYear = req?.body?.schoolYear;
+
+    const Forms = new JSONdb('db/Forms.json');
+    const FormsJSON = Forms.JSON();
+
+    const form = [];
+
+    // Check if student already has a form with the same quarter and school year
+    Object.keys(FormsJSON).forEach((key) => {
+      if (
+        FormsJSON[key].studentId === studentId &&
+        FormsJSON[key].quarter === quarter &&
+        FormsJSON[key].schoolYear === schoolYear
+      ) {
+        form.push({
+          id: key,
+          ...FormsJSON[key],
+        });
+      }
+    });
+
+    if (form.length > 0) {
+      Forms.set(form[0].id, {...req.body});
+    } else {
+      const id = uuidv4();
+      Forms.set(id, {...req.body});
+    }
 
     return res.status(200).json({message: 'Success'});
   } catch (error) {

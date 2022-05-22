@@ -39,6 +39,11 @@ $(window).on('load', async function () {
   $('.update-grade-button').on('click', function () {
     $('#update-grade-modal').modal('show');
   });
+
+  $('#search-form-button').on('click', function (e) {
+    e.preventDefault();
+    searchForm();
+  });
 });
 
 function createCookie(name, value, days) {
@@ -370,4 +375,14 @@ async function updateStudent() {
   if (res.status === 200) {
     alert('Successfully updated student!');
   }
+}
+
+function searchForm() {
+  if ($('#search-input').val() === '') {
+    alert('Please input search keyword!');
+    return;
+  }
+
+  window.location.href =
+    '/admin/forms?search=' + $('#search-input').val() + '&schoolYear=' + $('#school-year-search-select').val();
 }

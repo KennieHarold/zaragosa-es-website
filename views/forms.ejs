@@ -11,7 +11,7 @@
       <div class="d-flex flex-row">
         <div class="d-flex flex-row" style="width: 20%">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search..." />
+            <input id="search-input" type="text" class="form-control" placeholder="Search..." />
           </div>
         </div>
         <div class="d-flex flex-row" style="width: 20%; margin-left: 1em">
@@ -28,21 +28,66 @@
             </select>
           </div>
         </div>
-        <button class="btn btn-primary" style="margin-left: 1em">Search</button>
+        <button id="search-form-button" class="btn btn-primary" style="margin-left: 1em">Search</button>
       </div>
 
       <!-- Main Form -->
+      <% if (student && forms.length === 0) { %>
+      <div
+        id="no-form-badge"
+        class="bg-warning mt-4 rounded p-2 text-secondary"
+        style="display: flex; flex-direction: row; align-items: center; justify-content: space-between"
+      >
+        <span></span>
+        <span>No record found!</span>
+        <i
+          class="fa fa-times-circle"
+          style="font-size: 1.5em; cursor: pointer"
+          onclick="document.getElementById('no-form-badge').style.display='none';"
+        ></i>
+      </div>
+      <% } %>
+
+      <!--  -->
+
+      <% if (!student) { %>
+      <div
+        id="no-student-badge"
+        class="bg-warning mt-4 rounded p-2 text-secondary"
+        style="display: flex; flex-direction: row; align-items: center; justify-content: space-between"
+      >
+        <span></span>
+        <span>No student found!</span>
+        <i
+          class="fa fa-times-circle"
+          style="font-size: 1.5em; cursor: pointer"
+          onclick="document.getElementById('no-student-badge').style.display='none';"
+        ></i>
+      </div>
+      <% } %>
+
       <div class="row gx-3 mt-5">
         <div class="col-lg-4">
           <div class="p-3 shadow" style="border-radius: 10px">
             <span class="text-primary d-block mb-3" style="font-size: 16px; font-weight: 600">Student Information</span>
 
-            <span class="d-block mb-2">Student ID:<span id="form-name"></span></span>
-            <span class="d-block mb-2">Name:<span id="form-name"></span></span>
-            <span class="d-block mb-2">Age:<span id="form-name"></span></span>
-            <span class="d-block mb-2">Date of Birth:<span id="form-name"></span></span>
-            <span class="d-block mb-2">Gender:<span id="form-name"></span></span>
-            <span class="d-block mb-2">Grade and Section:<span id="form-name"></span></span>
+            <span class="d-block mb-2">Student ID:<span id="form-name"><%= student?.id || "" %></span></span>
+            <span class="d-block mb-2">
+              Name:
+              <span id="form-name">
+                <%= student?.firstname && student?.middleInitial && student?.lastname ? student.firstname + " " +
+                student.middleInitial + " " + student.lastname: "" %>
+              </span>
+            </span>
+            <span class="d-block mb-2">Age: <span id="form-name"><%= student?.age || "" %></span></span>
+            <span class="d-block mb-2">Date of Birth: <span id="form-name"><%= student?.bday || "" %></span></span>
+            <span class="d-block mb-2">Gender: <span id="form-name"><%= student?.gender || "" %></span></span>
+            <span class="d-block mb-2">
+              Grade and Section:
+              <span id="form-name">
+                <%= student?.grade && student?.section ? "Grade: " + student?.grade + ' - ' + student?.section : '' %>
+              </span>
+            </span>
           </div>
         </div>
         <div class="col-lg-8">
@@ -63,183 +108,167 @@
               <tr>
                 <td>English</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td>Mathematics</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td>Filipino</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td>Science</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td>Araling Panlipunan (AP)</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td>Edukasyong Pangkabuhayan at Pangtahanan (EPP)</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td>Music, Arts, Physical Education, and Health (MAPEH)</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td>Edukasyon sa Pagpapakatao (ESP)</td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
                 <td>
-                  <span>75</span>
+                  <span></span>
                   <i class="fa fa-edit text-primary update-grade-button"></i>
                 </td>
-                <td>
-                  <div class="badge bg-success p-2 text-white">Passed</div>
-                </td>
+                <td id="remarks-badge"></td>
               </tr>
               <tr>
                 <td colspan="4"><b>General Average</b></td>
                 <td colspan="2" style="text-align: right">
-                  <span class="text-success"><b>75.00</b></span>
+                  <span id="general-average" class="text-success" style="font-weight: 600"></span>
                 </td>
               </tr>
             </table>
@@ -258,14 +287,13 @@
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
-        
         <div class="modal-content">
           <div class="modal-header"><b>Update Grade</b></div>
           <div class="modal-body">
             <span class="d-block">Name:&nbsp;<span id="update-grade-modal-name"></span></span>
-            <span class="d-block">Subject:&nbsp;<span id="update-grade-modal-subject"></span></span></span>
-            <span class="d-block">Quarter:&nbsp;<span id="update-grade-modal-quarter"></span></span></span>
-            <span class="d-block mb-3">School Year:&nbsp;<span id="update-grade-modal-sy"></span></span></span>
+            <span class="d-block">Subject:&nbsp;<span id="update-grade-modal-subject"></span></span>
+            <span class="d-block">Quarter:&nbsp;<span id="update-grade-modal-quarter"></span></span>
+            <span class="d-block mb-3">School Year:&nbsp;<span id="update-grade-modal-sy"></span></span>
             <div class="form-group">
               <input id="enter-grade-input" type="number" class="form-control" placeholder="Enter grade..." />
             </div>
