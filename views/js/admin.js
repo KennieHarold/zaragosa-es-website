@@ -13,6 +13,10 @@ $(window).on('load', async function () {
     checkUpdate();
   }
 
+  if (path === 'forms') {
+    parseFormsFields();
+  }
+
   $('#login-btn').on('click', function (e) {
     e.preventDefault();
     adminLogin();
@@ -30,6 +34,10 @@ $(window).on('load', async function () {
 
   $('#logout-btn').on('click', function () {
     logout();
+  });
+
+  $('.update-grade-button').on('click', function () {
+    $('#update-grade-modal').modal('show');
   });
 });
 
@@ -266,6 +274,12 @@ function getRequirementComponent(requirement) {
 function parseEnrolmentFields() {
   const currentYear = new Date().getFullYear();
   $('#school-year-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
+  $('#school-year-search-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
+}
+
+function parseFormsFields() {
+  const currentYear = new Date().getFullYear();
+  $('#school-year-search-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
 }
 
 function checkUpdate() {

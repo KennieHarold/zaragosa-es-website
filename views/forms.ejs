@@ -7,6 +7,287 @@
     <%- include('partials/admin-tabs.ejs') %>
     <!-- End tabs -->
 
+    <div class="p-5">
+      <div class="d-flex flex-row">
+        <div class="d-flex flex-row" style="width: 20%">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search..." />
+          </div>
+        </div>
+        <div class="d-flex flex-row" style="width: 20%; margin-left: 1em">
+          <div class="input-group">
+            <% const currentYear = new Date().getFullYear() %>
+            <select id="school-year-search-select" class="form-control">
+              <% for (let i = currentYear + 4; i >= currentYear; i--) { %>
+              <option value='<%= i - 1 + "-" + i %>'><%= i - 1 + " - " + i %></option>
+              <% } %>
+              <!--  -->
+              <% for (let i = currentYear - 1; i >= currentYear - 4; i--) { %>
+              <option value='<%= i - 1 + "-" + i %>'><%= i - 1 + " - " + i %></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="margin-left: 1em">Search</button>
+      </div>
+
+      <!-- Main Form -->
+      <div class="row gx-3 mt-5">
+        <div class="col-lg-4">
+          <div class="p-3 shadow" style="border-radius: 10px">
+            <span class="text-primary d-block mb-3" style="font-size: 16px; font-weight: 600">Student Information</span>
+
+            <span class="d-block mb-2">Student ID:<span id="form-name"></span></span>
+            <span class="d-block mb-2">Name:<span id="form-name"></span></span>
+            <span class="d-block mb-2">Age:<span id="form-name"></span></span>
+            <span class="d-block mb-2">Date of Birth:<span id="form-name"></span></span>
+            <span class="d-block mb-2">Gender:<span id="form-name"></span></span>
+            <span class="d-block mb-2">Grade and Section:<span id="form-name"></span></span>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="p-3 shadow" style="border-radius: 10px">
+            <span class="text-primary d-block mb-3" style="font-size: 16px; font-weight: 600">
+              Report Card / Form 137
+            </span>
+
+            <table class="table table-bordered">
+              <tr>
+                <th>Subject</th>
+                <th>1st QTR</th>
+                <th>2nd QTR</th>
+                <th>3rd QTR</th>
+                <th>4th QTR</th>
+                <th>Remarks</th>
+              </tr>
+              <tr>
+                <td>English</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Mathematics</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Filipino</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Science</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Araling Panlipunan (AP)</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Edukasyong Pangkabuhayan at Pangtahanan (EPP)</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Music, Arts, Physical Education, and Health (MAPEH)</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td>Edukasyon sa Pagpapakatao (ESP)</td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <span>75</span>
+                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                </td>
+                <td>
+                  <div class="badge bg-success p-2 text-white">Passed</div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4"><b>General Average</b></td>
+                <td colspan="2" style="text-align: right">
+                  <span class="text-success"><b>75.00</b></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Update grade modal -->
+    <div
+      class="modal fade"
+      id="update-grade-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="update-grade-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        
+        <div class="modal-content">
+          <div class="modal-header"><b>Update Grade</b></div>
+          <div class="modal-body">
+            <span class="d-block">Name:&nbsp;<span id="update-grade-modal-name"></span></span>
+            <span class="d-block">Subject:&nbsp;<span id="update-grade-modal-subject"></span></span></span>
+            <span class="d-block">Quarter:&nbsp;<span id="update-grade-modal-quarter"></span></span></span>
+            <span class="d-block mb-3">School Year:&nbsp;<span id="update-grade-modal-sy"></span></span></span>
+            <div class="form-group">
+              <input id="enter-grade-input" type="number" class="form-control" placeholder="Enter grade..." />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Update Grade</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .nice-select {
+        display: none;
+      }
+
+      .update-grade-button {
+        margin-left: 1em;
+        cursor: pointer;
+      }
+    </style>
+
     <%- include('partials/scripts.ejs') %>
     <script src="<%= domainName %>/js/admin.js"></script>
     <script>
