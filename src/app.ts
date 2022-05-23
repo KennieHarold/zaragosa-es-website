@@ -100,17 +100,35 @@ app.get('/admin/enrolment/update/:studentId', rbac('/admin'), async (req, res) =
 app.get('/admin/forms', rbac('/admin'), async (req, res) => {
   const domainName = checkLocalHost(req);
   const search = req?.query?.search;
+  const studentId = req?.query?.studentId;
   const schoolYear = req?.query?.schoolYear;
+
+  let students = [];
 
   if (search && schoolYear) {
     const searchStudentRes = await axios.get(`${domainName}/api/v1/admin/search/students?search=${search}`);
-    const students = searchStudentRes?.data || [];
+    students = searchStudentRes?.data || [];
+  } else if (studentId && schoolYear) {
+    const searchStudentRes = await axios.get(`${domainName}/api/v1/admin/students/${studentId}`);
+    students = searchStudentRes?.data ? [searchStudentRes?.data] : [];
+  } else {
+    // Pass
+  }
 
-    if (searchStudentRes.status === 200 && students.length > 0) {
-      // const formSearchRes = await axios.get(
-      //   `${domainName}/api/v1/admin/forms?studentId=${students[0].id}&sy=${schoolYear}`,
-      // );
-      return res.render('./forms', {domainName, path: 'forms', schoolYear, search, student: students[0], forms: []});
+  if (students.length > 0) {
+    if (students[0].schoolYear === schoolYear) {
+      const formSearchRes = await axios.get(
+        `${domainName}/api/v1/admin/forms?studentId=${students[0].id}&sy=${schoolYear}`,
+      );
+
+      return res.render('./forms', {
+        domainName,
+        path: 'forms',
+        schoolYear,
+        search,
+        student: students[0],
+        forms: formSearchRes?.data || [],
+      });
     }
   }
 

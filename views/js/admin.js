@@ -34,6 +34,8 @@ var targetIds = [
   'esp-4q-grade',
 ];
 
+var subjectCodes = ['eng', 'math', 'sci', 'fil', 'ap', 'epp', 'mapeh', 'esp'];
+
 var students = [];
 var targetId = '';
 
@@ -50,6 +52,7 @@ $(window).on('load', async function () {
   }
 
   if (path === 'forms') {
+    loadForms();
     parseFormsFields();
   }
 
@@ -86,6 +89,11 @@ $(window).on('load', async function () {
   $('#update-confirm-grade-btn').on('click', function (e) {
     e.preventDefault();
     updateGradeOnTable();
+  });
+
+  $('#update-form-btn').on('click', function (e) {
+    e.preventDefault();
+    updateForm();
   });
 });
 
@@ -242,15 +250,25 @@ async function getStudents() {
             class='btn btn-primary btn-sm' 
             style='margin-right: 0.5em'
           >
-            View
+            View Student
             <i class='fa fa-location-arrow' style='font-size: 18px; margin-left: 0.25em'></i>
           </button>
           <button
             onClick="window.location.href = '/admin/enrolment/update/${student.id}'" 
-            class='btn btn-info btn-sm'>
-            Update
+            class='btn btn-info btn-sm'
+            style='margin-right: 0.5em'
+          >
+            Update Student Info
             <i class='fa fa-pencil' style='font-size: 18px; margin-left: 0.25em'></i>
           </button>
+          <button
+            onClick="window.location.href = '/admin/forms?studentId=${student.id}&schoolYear=${student.schoolYear}'" 
+            class='btn text-white btn-sm'
+            style='background-color: #EEBD0C'
+          >
+            Update Report Card
+            <i class='fa fa-pencil' style='font-size: 18px; margin-left: 0.25em'></i>
+        </button>
         </div>
       </td>
     </tr>
@@ -322,17 +340,20 @@ function getRequirementComponent(requirement) {
 function parseEnrolmentFields() {
   const currentYear = new Date().getFullYear();
   $('#school-year-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
-  $('#school-year-search-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
 }
 
 function parseFormsFields() {
-  const currentYear = new Date().getFullYear();
-  $('#school-year-search-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
+  if (!schoolYear) {
+    const currentYear = new Date().getFullYear();
+    $('#school-year-search-select').val((currentYear - 1).toString() + '-' + currentYear.toString());
+  } else {
+    $('#school-year-search-select').val(schoolYear);
+  }
 }
 
 function checkUpdate() {
   if (student) {
-    $('#student-id-input').val(student.id);
+    $('#student-id-input').val(student.studentId);
     $('#firstname-input').val(student.firstname);
     $('#middleinitial-input').val(student.middleInitial);
     $('#lastname-input').val(student.lastname);
@@ -446,7 +467,7 @@ function setupUpdateGradeModal(e) {
     $('#update-grade-modal-sy').text(schoolYear);
     $('#update-grade-modal').modal('show');
   } else {
-    alert('No student found!');
+    alert('No student found on that specific school year!');
   }
 }
 
@@ -500,7 +521,8 @@ function updateGradeOnTable() {
       $('#' + targetId).text(grade);
 
       // Calculate remarks
-      calculateRemarksAndGenAve();
+      calculateRemarks();
+      calculateGenAve();
 
       $('#update-grade-modal').modal('hide');
     } else {
@@ -509,7 +531,7 @@ function updateGradeOnTable() {
   }
 }
 
-function calculateRemarksAndGenAve() {
+function calculateRemarks() {
   const subject = targetId.split('-')[0];
 
   let total = 0;
@@ -528,7 +550,30 @@ function calculateRemarksAndGenAve() {
   } else {
     $('#remarks-badge-' + subject).append('<span class="badge badge-danger text-white p-2">Failed</span>');
   }
+}
 
+function calculateAllRemarks() {
+  for (let i = 0; i < subjectCodes.length; i++) {
+    let total = 0;
+
+    for (let j = 1; j <= 4; j++) {
+      const grade = parseInt($('#' + subjectCodes[i] + '-' + j + 'q-grade').text()) || 0;
+      total += grade;
+    }
+
+    const ave = total / 4;
+
+    $('#remarks-badge-' + subjectCodes[i]).empty();
+
+    if (ave >= 75) {
+      $('#remarks-badge-' + subjectCodes[i]).append('<span class="badge badge-success text-white p-2">Passed</span>');
+    } else {
+      $('#remarks-badge-' + subjectCodes[i]).append('<span class="badge badge-danger text-white p-2">Failed</span>');
+    }
+  }
+}
+
+function calculateGenAve() {
   // Calculate Gen Average
   let genTotal = 0;
   for (i = 1; i <= targetIds.length; i++) {
@@ -540,4 +585,80 @@ function calculateRemarksAndGenAve() {
 
   $('#general-average').text(genAve >= 60 ? genAve : '60.00');
   $('#general-average').css('color', genAve >= 75 ? 'green' : 'red');
+
+  $('#general-average').append(
+    genAve >= 75
+      ? '<span class="badge badge-success text-white p-2" style="margin-left: 2em">Passed</span>'
+      : '<span class="badge badge-danger text-white p-2" style="margin-left: 2em">Failed</span>',
+  );
+}
+
+async function updateForm() {
+  if (student && schoolYear) {
+    const base = {
+      studentId: student?.id,
+      schoolYear: schoolYear,
+    };
+
+    const quarter1 = {...base};
+    const quarter2 = {...base};
+    const quarter3 = {...base};
+    const quarter4 = {...base};
+
+    for (let i = 0; i < targetIds.length; i++) {
+      const subject = targetIds[i].split('-')[0];
+      const quarter = targetIds[i].split('-')[1];
+
+      if (quarter === '1q') {
+        quarter1[subject] = parseInt($('#' + targetIds[i]).text()) || 0;
+        quarter1['quarter'] = '1q';
+      } else if (quarter === '2q') {
+        quarter2[subject] = parseInt($('#' + targetIds[i]).text()) || 0;
+        quarter2['quarter'] = '2q';
+      } else if (quarter === '3q') {
+        quarter3[subject] = parseInt($('#' + targetIds[i]).text()) || 0;
+        quarter3['quarter'] = '3q';
+      } else if (quarter === '4q') {
+        quarter4[subject] = parseInt($('#' + targetIds[i]).text()) || 0;
+        quarter4['quarter'] = '4q';
+      } else {
+        // Pass
+      }
+    }
+
+    try {
+      await axios.post('/api/v1/admin/forms', quarter1);
+      await axios.post('/api/v1/admin/forms', quarter2);
+      await axios.post('/api/v1/admin/forms', quarter3);
+      await axios.post('/api/v1/admin/forms', quarter4);
+
+      alert('Successfully updated!');
+    } catch (error) {
+      console.log(error);
+      alert('There is an error');
+    }
+  } else {
+    alert('No student found on that specific school year!');
+  }
+}
+
+function loadForms() {
+  if (forms.length > 0) {
+    for (let i = 0; i < forms.length; i++) {
+      const quarter = forms[i].quarter;
+      const form = {...forms[i]};
+
+      delete form.id;
+      delete form.schoolYear;
+      delete form.studentId;
+      delete form.quarter;
+
+      Object.keys(form).forEach((subject) => {
+        $('#' + subject + '-' + quarter + '-grade').text(form[subject]);
+      });
+    }
+
+    calculateAllRemarks();
+    calculateGenAve();
+  }
 }

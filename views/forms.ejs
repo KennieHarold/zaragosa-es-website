@@ -9,12 +9,15 @@
 
     <div class="p-5">
       <div class="d-flex flex-row">
-        <div class="d-flex flex-row" style="width: 20%">
+        <div class="d-flex flex-column" style="width: 20%">
+          <div class="mb-2" style="font-weight: 600">Enter first name or last name</div>
           <div class="input-group">
             <input id="search-input" type="text" class="form-control" placeholder="Search..." value="<%= search %>" />
           </div>
         </div>
-        <div class="d-flex flex-row" style="width: 20%; margin-left: 1em">
+
+        <div class="d-flex flex-column" style="width: 20%; margin-left: 1em">
+          <div class="mb-2" style="font-weight: 600">Enter school year enrolled</div>
           <div class="input-group">
             <% const currentYear = new Date().getFullYear() %>
             <select id="school-year-search-select" class="form-control">
@@ -28,7 +31,15 @@
             </select>
           </div>
         </div>
-        <button id="search-form-button" class="btn btn-primary" style="margin-left: 1em">Search</button>
+
+        <button
+          id="search-form-button"
+          class="btn btn-primary"
+          style="margin-left: 1em; height: 40px; align-self: end; padding-left: 1.5em; padding-right: 1.5em"
+        >
+          Search
+          <i class="fa fa-search" style="margin-left: 0.5em"></i>
+        </button>
       </div>
 
       <!-- Main Form -->
@@ -39,7 +50,7 @@
         style="display: flex; flex-direction: row; align-items: center; justify-content: space-between"
       >
         <span></span>
-        <span>No record found!</span>
+        <span style="font-size: 1.15em">No record found! Please update the form</span>
         <i
           class="fa fa-times-circle"
           style="font-size: 1.5em; cursor: pointer"
@@ -57,7 +68,7 @@
         style="display: flex; flex-direction: row; align-items: center; justify-content: space-between"
       >
         <span></span>
-        <span>No student found!</span>
+        <span style="font-size: 1.15em">No student found on that specific school year!</span>
         <i
           class="fa fa-times-circle"
           style="font-size: 1.5em; cursor: pointer"
@@ -68,30 +79,47 @@
 
       <div class="row gx-3 mt-5">
         <div class="col-lg-4">
-          <div class="p-3 shadow h-100" style="border-radius: 10px">
+          <div class="p-3 shadow h-100 border border-1" style="border-radius: 10px">
             <span class="text-primary d-block mb-3" style="font-size: 16px; font-weight: 600">Student Information</span>
 
-            <span class="d-block mb-2">Student ID:<span id="form-name"><%= student?.id || "" %></span></span>
-            <span class="d-block mb-2">
-              Name:
+            <div class="mb-3">
+              <span class="d-block" style="font-weight: 600">Student ID:</span>
+              <span id="form-name"><%= student?.studentId || "" %></span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block" style="font-weight: 600">Name:</span>
               <span id="form-name">
                 <%= student?.firstname && student?.middleInitial && student?.lastname ? student.firstname + " " +
                 student.middleInitial + " " + student.lastname: "" %>
               </span>
-            </span>
-            <span class="d-block mb-2">Age: <span id="form-name"><%= student?.age || "" %></span></span>
-            <span class="d-block mb-2">Date of Birth: <span id="form-name"><%= student?.bday || "" %></span></span>
-            <span class="d-block mb-2">Gender: <span id="form-name"><%= student?.gender || "" %></span></span>
-            <span class="d-block mb-2">
-              Grade and Section:
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block mb-2" style="font-weight: 600">Age:</span>
+              <span id="form-name"><%= student?.age || "" %></span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block mb-2" style="font-weight: 600">Date of Birth:</span>
+              <span id="form-name"><%= student?.bday || "" %></span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block mb-2" style="font-weight: 600">Gender:</span>
+              <span id="form-name"><%= student?.gender.toUpperCase() || "" %></span>
+            </div>
+
+            <div class="mb-3">
+              <span class="d-block mb-2" style="font-weight: 600">Grade and Section:</span>
               <span id="form-name">
                 <%= student?.grade && student?.section ? "Grade: " + student?.grade + ' - ' + student?.section : '' %>
               </span>
-            </span>
+            </div>
           </div>
         </div>
         <div class="col-lg-8">
-          <div class="p-3 shadow" style="border-radius: 10px">
+          <div class="p-3 shadow border border-1" style="border-radius: 10px">
             <span class="text-primary d-block mb-3" style="font-size: 16px; font-weight: 600">
               Report Card / Form 137
             </span>
@@ -99,10 +127,10 @@
             <table class="table table-bordered">
               <tr>
                 <th>Subject</th>
-                <th>1st QTR</th>
-                <th>2nd QTR</th>
-                <th>3rd QTR</th>
-                <th>4th QTR</th>
+                <th>1st Qtr</th>
+                <th>2nd Qtr</th>
+                <th>3rd Qtr</th>
+                <th>4th Qtr</th>
                 <th>Remarks</th>
               </tr>
               <tr>
@@ -277,7 +305,9 @@
       </div>
 
       <div class="mt-5 d-flex justify-content-end">
-        <button class="btn btn-primary">Update form</button>
+        <button id="update-form-btn" class="btn btn-primary">
+          <i class="fa fa-save" style="margin-right: 0.5em"></i>Update form
+        </button>
       </div>
     </div>
 
@@ -325,6 +355,7 @@
     <script>
       var path = '<%= path %>';
       var student = JSON.parse('<%- JSON.stringify(student) %>');
+      var forms = JSON.parse('<%- JSON.stringify(forms) %>');
       var schoolYear = '<%= schoolYear %>';
     </script>
   </body>
