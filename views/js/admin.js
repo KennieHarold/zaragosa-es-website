@@ -1,5 +1,41 @@
 /* eslint-disable no-undef */
+var targetIds = [
+  'eng-1q-grade',
+  'eng-2q-grade',
+  'eng-3q-grade',
+  'eng-4q-grade',
+  'math-1q-grade',
+  'math-2q-grade',
+  'math-3q-grade',
+  'math-4q-grade',
+  'sci-1q-grade',
+  'sci-2q-grade',
+  'sci-3q-grade',
+  'sci-4q-grade',
+  'fil-1q-grade',
+  'fil-2q-grade',
+  'fil-3q-grade',
+  'fil-4q-grade',
+  'ap-1q-grade',
+  'ap-2q-grade',
+  'ap-3q-grade',
+  'ap-4q-grade',
+  'epp-1q-grade',
+  'epp-2q-grade',
+  'epp-3q-grade',
+  'epp-4q-grade',
+  'mapeh-1q-grade',
+  'mapeh-2q-grade',
+  'mapeh-3q-grade',
+  'mapeh-4q-grade',
+  'esp-1q-grade',
+  'esp-2q-grade',
+  'esp-3q-grade',
+  'esp-4q-grade',
+];
+
 var students = [];
+var targetId = '';
 
 $(window).on('load', async function () {
   checkPath();
@@ -36,13 +72,20 @@ $(window).on('load', async function () {
     logout();
   });
 
-  $('.update-grade-button').on('click', function () {
-    $('#update-grade-modal').modal('show');
+  $('.update-grade-button').on('click', function (e) {
+    $('#no-form-badge').hide();
+    $('#no-student-badge').hide();
+    setupUpdateGradeModal(e);
   });
 
   $('#search-form-button').on('click', function (e) {
     e.preventDefault();
     searchForm();
+  });
+
+  $('#update-confirm-grade-btn').on('click', function (e) {
+    e.preventDefault();
+    updateGradeOnTable();
   });
 });
 
@@ -385,4 +428,116 @@ function searchForm() {
 
   window.location.href =
     '/admin/forms?search=' + $('#search-input').val() + '&schoolYear=' + $('#school-year-search-select').val();
+}
+
+function setupUpdateGradeModal(e) {
+  targetId = e.target.dataset.targetId;
+
+  if (student && schoolYear && targetIds.includes(targetId)) {
+    $('#enter-grade-input').val('');
+
+    const name = student?.firstname + ' ' + student?.middleInitial + ' ' + student?.lastname;
+    const subject = getSubjectNameFromTargetId(targetId);
+    const quarter = getQuarterFromTargetId(targetId);
+
+    $('#update-grade-modal-name').text(name);
+    $('#update-grade-modal-subject').text(subject);
+    $('#update-grade-modal-quarter').text(quarter);
+    $('#update-grade-modal-sy').text(schoolYear);
+    $('#update-grade-modal').modal('show');
+  } else {
+    alert('No student found!');
+  }
+}
+
+function getSubjectNameFromTargetId(targetId) {
+  const subject = targetId.split('-')[0];
+
+  switch (subject) {
+    case 'math':
+      return 'Mathematics';
+    case 'sci':
+      return 'Science';
+    case 'eng':
+      return 'English';
+    case 'fil':
+      return 'Filipino';
+    case 'ap':
+      return 'Araling Panlipunan (AP)';
+    case 'epp':
+      return 'Edukasyong Pangkabuhayan at Pangtahanan (EPP)';
+    case 'mapeh':
+      return 'Music, Arts, Physical Education, and Health (MAPEH)';
+    case 'esp':
+      return 'Edukasyon sa Pagpapakatao (ESP)';
+    default:
+      return '';
+  }
+}
+
+function getQuarterFromTargetId(targetId) {
+  const quarter = targetId.split('-')[1];
+
+  switch (quarter) {
+    case '1q':
+      return 'First Quarter';
+    case '2q':
+      return 'Second Quarter';
+    case '3q':
+      return 'Third Quarter';
+    case '4q':
+      return 'Fourth Quarter';
+    default:
+      return '';
+  }
+}
+
+function updateGradeOnTable() {
+  const grade = parseInt($('#enter-grade-input').val());
+
+  if (targetId && targetId !== '') {
+    if (grade >= 50 && grade <= 100) {
+      $('#' + targetId).text(grade);
+
+      // Calculate remarks
+      calculateRemarksAndGenAve();
+
+      $('#update-grade-modal').modal('hide');
+    } else {
+      alert('Please input grade between 75 and 100!');
+    }
+  }
+}
+
+function calculateRemarksAndGenAve() {
+  const subject = targetId.split('-')[0];
+
+  let total = 0;
+
+  for (i = 1; i <= 4; i++) {
+    const grade = parseInt($('#' + subject + '-' + i + 'q-grade').text()) || 0;
+    total += grade;
+  }
+
+  const ave = total / 4;
+
+  $('#remarks-badge-' + subject).empty();
+
+  if (ave >= 75) {
+    $('#remarks-badge-' + subject).append('<span class="badge badge-success text-white p-2">Passed</span>');
+  } else {
+    $('#remarks-badge-' + subject).append('<span class="badge badge-danger text-white p-2">Failed</span>');
+  }
+
+  // Calculate Gen Average
+  let genTotal = 0;
+  for (i = 1; i <= targetIds.length; i++) {
+    const grade = parseInt($('#' + targetIds[i]).text()) || 0;
+    genTotal += grade;
+  }
+
+  const genAve = parseFloat(genTotal / targetIds.length).toFixed(2);
+
+  $('#general-average').text(genAve >= 60 ? genAve : '60.00');
+  $('#general-average').css('color', genAve >= 75 ? 'green' : 'red');
 }

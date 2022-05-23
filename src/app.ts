@@ -110,11 +110,11 @@ app.get('/admin/forms', rbac('/admin'), async (req, res) => {
       // const formSearchRes = await axios.get(
       //   `${domainName}/api/v1/admin/forms?studentId=${students[0].id}&sy=${schoolYear}`,
       // );
-      return res.render('./forms', {domainName, path: 'forms', student: students[0], forms: []});
+      return res.render('./forms', {domainName, path: 'forms', schoolYear, search, student: students[0], forms: []});
     }
   }
 
-  return res.render('./forms', {domainName, path: 'forms', student: null, forms: []});
+  return res.render('./forms', {domainName, path: 'forms', schoolYear, search, student: null, forms: []});
 });
 
 // Admin - Calendar

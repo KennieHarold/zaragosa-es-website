@@ -11,7 +11,7 @@
       <div class="d-flex flex-row">
         <div class="d-flex flex-row" style="width: 20%">
           <div class="input-group">
-            <input id="search-input" type="text" class="form-control" placeholder="Search..." />
+            <input id="search-input" type="text" class="form-control" placeholder="Search..." value="<%= search %>" />
           </div>
         </div>
         <div class="d-flex flex-row" style="width: 20%; margin-left: 1em">
@@ -68,7 +68,7 @@
 
       <div class="row gx-3 mt-5">
         <div class="col-lg-4">
-          <div class="p-3 shadow" style="border-radius: 10px">
+          <div class="p-3 shadow h-100" style="border-radius: 10px">
             <span class="text-primary d-block mb-3" style="font-size: 16px; font-weight: 600">Student Information</span>
 
             <span class="d-block mb-2">Student ID:<span id="form-name"><%= student?.id || "" %></span></span>
@@ -108,172 +108,176 @@
               <tr>
                 <td>English</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="eng-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="eng-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="eng-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="eng-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="eng-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="eng-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="eng-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="eng-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-eng"></td>
               </tr>
               <tr>
                 <td>Mathematics</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="math-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="math-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="math-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="math-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="math-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="math-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="math-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="math-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-math"></td>
               </tr>
               <tr>
                 <td>Filipino</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="fil-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="fil-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="fil-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="fil-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="fil-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="fil-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="fil-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="fil-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-fil"></td>
               </tr>
               <tr>
                 <td>Science</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="sci-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="sci-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="sci-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="sci-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="sci-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="sci-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="sci-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="sci-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-sci"></td>
               </tr>
               <tr>
                 <td>Araling Panlipunan (AP)</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="ap-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="ap-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="ap-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="ap-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="ap-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="ap-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="ap-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="ap-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-ap"></td>
               </tr>
               <tr>
                 <td>Edukasyong Pangkabuhayan at Pangtahanan (EPP)</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="epp-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="epp-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="epp-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="epp-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="epp-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="epp-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="epp-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="epp-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-epp"></td>
               </tr>
               <tr>
                 <td>Music, Arts, Physical Education, and Health (MAPEH)</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="mapeh-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="mapeh-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="mapeh-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="mapeh-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="mapeh-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="mapeh-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="mapeh-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="mapeh-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-mapeh"></td>
               </tr>
               <tr>
                 <td>Edukasyon sa Pagpapakatao (ESP)</td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="esp-1q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="esp-1q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="esp-2q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="esp-2q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="esp-3q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="esp-3q-grade"></i>
                 </td>
                 <td>
-                  <span></span>
-                  <i class="fa fa-edit text-primary update-grade-button"></i>
+                  <span id="esp-4q-grade"></span>
+                  <i class="fa fa-edit text-primary update-grade-button" data-target-id="esp-4q-grade"></i>
                 </td>
-                <td id="remarks-badge"></td>
+                <td id="remarks-badge-esp"></td>
               </tr>
               <tr>
                 <td colspan="4"><b>General Average</b></td>
                 <td colspan="2" style="text-align: right">
-                  <span id="general-average" class="text-success" style="font-weight: 600"></span>
+                  <span id="general-average" style="font-weight: 600"></span>
                 </td>
               </tr>
             </table>
           </div>
         </div>
+      </div>
+
+      <div class="mt-5 d-flex justify-content-end">
+        <button class="btn btn-primary">Update form</button>
       </div>
     </div>
 
@@ -300,7 +304,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Update Grade</button>
+            <button id="update-confirm-grade-btn" type="button" class="btn btn-primary">Update Grade</button>
           </div>
         </div>
       </div>
@@ -320,6 +324,8 @@
     <script src="<%= domainName %>/js/admin.js"></script>
     <script>
       var path = '<%= path %>';
+      var student = JSON.parse('<%- JSON.stringify(student) %>');
+      var schoolYear = '<%= schoolYear %>';
     </script>
   </body>
 </html>
