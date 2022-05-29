@@ -6,7 +6,7 @@ import {v4 as uuidv4} from 'uuid';
 import config from 'configs';
 
 import {JwtPayload} from 'types/auth';
-import {CustomRequest, IUser, IForm} from 'types/api';
+import {CustomRequest, IUser, IForm, ICalendar} from 'types/api';
 
 export const adminLogin = async (req: Request, res: Response) => {
   try {
@@ -188,6 +188,64 @@ export const addForm = async (req: CustomRequest<IForm>, res: Response) => {
     }
 
     return res.status(200).json({message: 'Success'});
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+};
+
+export const addEvent = async (req: CustomRequest<ICalendar>, res: Response) => {
+  try {
+    if (!req.body.event || !req.body.date) {
+      return res.status(400).json({
+        message: 'Missing params!',
+      });
+    }
+
+    const Calendar = new JSONdb('db/Calendar.json');
+    const CalendarJSON = Calendar.JSON();
+
+    let isExist = false;
+
+    Object.keys(CalendarJSON).forEach((key) => {
+      if (CalendarJSON[key].date === req.body.date) {
+        Calendar.set(key, {...req.body});
+        isExist = true;
+      }
+    });
+
+    if (!isExist) {
+      const id = uuidv4();
+      Calendar.set(id, {...req.body});
+    }
+
+    return res.status(200).json({message: 'Success'});
+  } catch (error) {
+    console.log(error);
+    return res.status(500);
+  }
+};
+
+export const getCalendarEventsThisMonth = async (req: Request, res: Response) => {
+  try {
+    const Calendar = new JSONdb('db/Calendar.json');
+    const CalendarJSON = Calendar.JSON();
+    const date = new Date();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const events = [];
+
+    Object.keys(CalendarJSON).forEach((key) => {
+      const eventDate = new Date(CalendarJSON[key].date);
+      if (eventDate.getMonth() === month && eventDate.getFullYear() === year) {
+        events.push({
+          id: key,
+          ...CalendarJSON[key],
+        });
+      }
+    });
+
+    return res.status(200).json(events);
   } catch (error) {
     console.log(error);
     return res.status(500);

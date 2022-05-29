@@ -100,6 +100,11 @@ $(window).on('load', async function () {
     e.preventDefault();
     print();
   });
+
+  $('#add-event-btn').on('click', function (e) {
+    e.preventDefault();
+    addEvent();
+  });
 });
 
 function createCookie(name, value, days) {
@@ -676,4 +681,34 @@ function print() {
   WinPrint.focus();
   WinPrint.print();
   WinPrint.close();
+}
+
+async function addEvent() {
+  try {
+    const event = $('#event-name-input').val();
+    const date = $('#event-date-input').val();
+
+    if (!event || !date || event === '' || date === '') {
+      alert('Please input required fields!');
+      return;
+    }
+
+    const payload = {
+      event,
+      date,
+    };
+
+    const res = await axios.post('/api/v1/admin/calendar', payload).catch((err) => {
+      alert(err.response.data.message);
+    });
+
+    if (res.status === 200) {
+      alert('Successfully added!');
+      $('#event-name-input').val('');
+      $('#event-date-input').val('');
+    }
+  } catch (error) {
+    console.log(error);
+    alert('Something went wrong adding the event!');
+  }
 }

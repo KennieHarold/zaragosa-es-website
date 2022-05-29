@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head.ejs') %>
+
+  <!-- Body -->
+  <body class="main-layout">
+    <!-- Header -->
+    <%- include('partials/header2.ejs') %>
+
+    <!-- Calendar -->
+    <div class="month">
+      <ul>
+        <li>
+          <!-- prettier-ignore -->
+          <% const d = new Date(); %>
+          <% const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]; %>
+          <% const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]; %>
+          <% const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; %>
+          <% const monthDayOne = new Date(d.getFullYear(), d.getMonth(), 1); %>
+          <span><%= monthNames[d.getMonth()] %></span><br />
+          <span style="font-size: 18px"><%= d.getFullYear() %></span>
+        </li>
+      </ul>
+    </div>
+
+    <ul class="weekdays">
+      <li>Mo</li>
+      <li>Tu</li>
+      <li>We</li>
+      <li>Th</li>
+      <li>Fr</li>
+      <li>Sa</li>
+      <li>Su</li>
+    </ul>
+
+    <ul class="days">
+      <!-- prettier-ignore -->
+      <% const dayOne = monthDayOne.getDay() %>
+      <% const skip = dayOne === 0 ? 6 : dayOne - 1 %>
+      <% for (let i = 0; i < skip; i++) { %>
+      <li></li>
+      <% } %>
+      <!-- prettier-ignore -->
+      <% for (let i = 1; i <= daysInMonth[d.getMonth()]; i++) { %>
+
+      <!-- Check if an event -->
+      <!-- prettier-ignore -->
+      <% const iWithoutPad = i < 10 ? '0' + i : i %>
+      <% const isEvent = events.findIndex((event) => event.date.split('-')[2] === iWithoutPad.toString()) %>
+
+      <% if (i === d.getDate()) { %>
+      <% if (isEvent !== -1) { %>
+      <li>
+        <span
+          class="active today"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="<%= events[isEvent]?.event || '' %>"
+        >
+          <%= i %>
+        </span>
+      </li>
+      <% } else { %>
+      <li><span class="today"><%= i %></span></li>
+      <% } %> <% } else if (isEvent !== -1) { %>
+      <li>
+        <span class="active" data-toggle="tooltip" data-placement="top" title="<%= events[isEvent]?.event || '' %>">
+          <%= i %>
+        </span>
+      </li>
+      <% } else { %>
+      <li><%= i %></li>
+      <% } %> <% } %>
+    </ul>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      ul {
+        list-style-type: none;
+      }
+      body {
+        font-family: Verdana, sans-serif;
+      }
+
+      .month {
+        padding: 50px 25px;
+        width: 100%;
+        background: #1abc9c;
+        text-align: center;
+        margin-top: 2.9em;
+      }
+
+      .month ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      .month ul li {
+        color: white;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+      }
+
+      .month .prev {
+        float: left;
+        padding-top: 10px;
+      }
+
+      .month .next {
+        float: right;
+        padding-top: 10px;
+      }
+
+      .weekdays {
+        margin: 0;
+        padding: 10px 0;
+        background-color: #ddd;
+      }
+
+      .weekdays li {
+        display: inline-block;
+        width: 13.6%;
+        color: #666;
+        text-align: center;
+        font-size: 1.5em;
+      }
+
+      .days {
+        padding: 10px 0;
+        background: #eee;
+        margin: 0;
+      }
+
+      .days li {
+        list-style-type: none;
+        display: inline-block;
+        width: 13.6%;
+        text-align: center;
+        margin-bottom: 5px;
+        font-size: 1.5em;
+        color: #777;
+      }
+
+      .days li .today {
+        display: block;
+        width: 45px;
+        border: 3px solid #1abc9c;
+        border-radius: 10px;
+        margin: auto;
+      }
+
+      .days li .active {
+        display: block;
+        width: 45px;
+        background: #0d6efd;
+        border-radius: 10px;
+        margin: auto;
+        cursor: pointer;
+        color: white;
+      }
+
+      /* Add media queries for smaller screens */
+      @media screen and (max-width: 720px) {
+        .weekdays li,
+        .days li {
+          width: 13.1%;
+        }
+      }
+
+      @media screen and (max-width: 420px) {
+        .weekdays li,
+        .days li {
+          width: 12.5%;
+        }
+        .days li .active {
+          padding: 2px;
+        }
+      }
+
+      @media screen and (max-width: 290px) {
+        .weekdays li,
+        .days li {
+          width: 12.2%;
+        }
+      }
+    </style>
+  </body>
+</html>

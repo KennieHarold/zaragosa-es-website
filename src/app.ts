@@ -15,6 +15,8 @@ import {
   searchStudent,
   getFormsByStudentIdAndSY,
   addForm,
+  addEvent,
+  getCalendarEventsThisMonth,
 } from 'controllers';
 import {rbac} from 'middlewares/auth';
 import axios from 'axios';
@@ -65,6 +67,17 @@ app.get('/about', (req, res) => {
 app.get('/history', (req, res) => {
   const domainName = checkLocalHost(req);
   res.render('./history', {domainName});
+});
+
+app.get('/calendar', async (req, res) => {
+  const domainName = checkLocalHost(req);
+  const calendarRes = await axios.get(`${domainName}/api/v1/admin/calendar/this-month`);
+
+  if (calendarRes.status === 200) {
+    res.render('./events', {domainName, events: calendarRes?.data || []});
+  } else {
+    res.render('./events', {domainName, events: []});
+  }
 });
 
 // Admin
@@ -136,7 +149,6 @@ app.get('/admin/forms', rbac('/admin'), async (req, res) => {
 });
 
 // Admin - Calendar
-
 app.get('/admin/calendar', rbac('/admin'), (req, res) => {
   const domainName = checkLocalHost(req);
   res.render('./calendar', {domainName, path: 'calendar'});
@@ -155,6 +167,10 @@ app.get('/api/v1/admin/search/students', searchStudent);
 // Form API
 app.get('/api/v1/admin/forms', getFormsByStudentIdAndSY);
 app.post('/api/v1/admin/forms', addForm);
+
+// Calendar API
+app.post('/api/v1/admin/calendar', addEvent);
+app.get('/api/v1/admin/calendar/this-month', getCalendarEventsThisMonth);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

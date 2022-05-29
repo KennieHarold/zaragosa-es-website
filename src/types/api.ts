@@ -30,6 +30,12 @@ export interface IForm {
   esp: number;
 }
 
+export interface ICalendar {
+  id: string;
+  event: string;
+  date: string;
+}
+
 export interface CustomRequest<T> extends Request {
   body: T;
 }
