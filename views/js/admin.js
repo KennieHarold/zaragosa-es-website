@@ -95,6 +95,11 @@ $(window).on('load', async function () {
     e.preventDefault();
     updateForm();
   });
+
+  $('#print-btn').on('click', function (e) {
+    e.preventDefault();
+    print();
+  });
 });
 
 function createCookie(name, value, days) {
@@ -661,4 +666,14 @@ function loadForms() {
     calculateAllRemarks();
     calculateGenAve();
   }
+}
+
+function print() {
+  var prtContent = document.getElementById('print-area');
+  var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+  WinPrint.document.write(prtContent.innerHTML);
+  WinPrint.document.close();
+  WinPrint.focus();
+  WinPrint.print();
+  WinPrint.close();
 }
